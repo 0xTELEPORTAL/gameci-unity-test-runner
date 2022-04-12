@@ -9,6 +9,7 @@ async function run() {
     const {
       editorVersion,
       customImage,
+      chownFilesTo,
       projectPath,
       customParameters,
       testMode,
@@ -27,6 +28,7 @@ async function run() {
         actionFolder,
         editorVersion,
         workspace,
+        chownFilesTo,
         projectPath,
         customParameters,
         testMode,

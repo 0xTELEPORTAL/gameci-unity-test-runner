@@ -16,6 +16,7 @@ const Input = {
     // Input variables specified in workflow using "with" prop.
     const unityVersion = getInput('unityVersion') || 'auto';
     const customImage = getInput('customImage') || '';
+    const chownFilesTo = getInput('chownFilesTo') || '';
     const rawProjectPath = getInput('projectPath') || '.';
     const customParameters = getInput('customParameters') || '';
     const testMode = (getInput('testMode') || 'all').toLowerCase();
@@ -54,6 +55,7 @@ const Input = {
     return {
       editorVersion,
       customImage,
+      chownFilesTo,
       projectPath,
       customParameters,
       testMode,

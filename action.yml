@@ -10,6 +10,9 @@ inputs:
     required: false
     default: ''
     description: 'Specific docker image that should be used for testing the project'
+  chownFilesTo:
+    required: false
+    description: 'User and optionally group (user or user:group or uid:gid) to give ownership of the resulting build artifacts.'
   projectPath:
     required: false
     description: 'Path to the Unity project to be tested.'

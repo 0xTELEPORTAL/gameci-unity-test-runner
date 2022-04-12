@@ -8,6 +8,7 @@ const Docker = {
       actionFolder,
       editorVersion,
       workspace,
+      chownFilesTo,
       projectPath,
       customParameters,
       testMode,
@@ -33,6 +34,7 @@ const Docker = {
         --env UNITY_PASSWORD \
         --env UNITY_SERIAL \
         --env UNITY_VERSION="${editorVersion}" \
+        --env CHOWN_FILES_TO="${chownFilesTo}" \
         --env PROJECT_PATH="${projectPath}" \
         --env CUSTOM_PARAMETERS="${customParameters}" \
         --env TEST_MODE="${testMode}" \

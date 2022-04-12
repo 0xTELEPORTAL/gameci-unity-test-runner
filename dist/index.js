@@ -42,7 +42,7 @@ function run() {
         try {
             model_1.Action.checkCompatibility();
             const { workspace, actionFolder } = model_1.Action;
-            const { editorVersion, customImage, projectPath, customParameters, testMode, artifactsPath, useHostNetwork, sshAgent, gitPrivateToken, githubToken, checkName, } = model_1.Input.getFromUser();
+            const { editorVersion, customImage, chownFilesTo, projectPath, customParameters, testMode, artifactsPath, useHostNetwork, sshAgent, gitPrivateToken, githubToken, checkName, } = model_1.Input.getFromUser();
             const baseImage = new model_1.ImageTag({ editorVersion, customImage });
             const runnerTemporaryPath = process.env.RUNNER_TEMP;
             try {
@@ -50,6 +50,7 @@ function run() {
                     actionFolder,
                     editorVersion,
                     workspace,
+                    chownFilesTo,
                     projectPath,
                     customParameters,
                     testMode,
@@ -152,7 +153,7 @@ const path_1 = __importDefault(__nccwpck_require__(1017));
 const Docker = {
     run(image, parameters, silent = false) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { actionFolder, editorVersion, workspace, projectPath, customParameters, testMode, artifactsPath, useHostNetwork, sshAgent, gitPrivateToken, githubToken, runnerTemporaryPath, } = parameters;
+            const { actionFolder, editorVersion, workspace, chownFilesTo, projectPath, customParameters, testMode, artifactsPath, useHostNetwork, sshAgent, gitPrivateToken, githubToken, runnerTemporaryPath, } = parameters;
             const githubHome = path_1.default.join(runnerTemporaryPath, '_github_home');
             if (!(0, fs_1.existsSync)(githubHome))
                 (0, fs_1.mkdirSync)(githubHome);
@@ -168,6 +169,7 @@ const Docker = {
         --env UNITY_PASSWORD \
         --env UNITY_SERIAL \
         --env UNITY_VERSION="${editorVersion}" \
+        --env CHOWN_FILES_TO="${chownFilesTo}" \
         --env PROJECT_PATH="${projectPath}" \
         --env CUSTOM_PARAMETERS="${customParameters}" \
         --env TEST_MODE="${testMode}" \
@@ -382,6 +384,7 @@ const Input = {
         // Input variables specified in workflow using "with" prop.
         const unityVersion = (0, core_1.getInput)('unityVersion') || 'auto';
         const customImage = (0, core_1.getInput)('customImage') || '';
+        const chownFilesTo = (0, core_1.getInput)('chownFilesTo') || '';
         const rawProjectPath = (0, core_1.getInput)('projectPath') || '.';
         const customParameters = (0, core_1.getInput)('customParameters') || '';
         const testMode = ((0, core_1.getInput)('testMode') || 'all').toLowerCase();
@@ -413,6 +416,7 @@ const Input = {
         return {
             editorVersion,
             customImage,
+            chownFilesTo,
             projectPath,
             customParameters,
             testMode,
